@@ -1,0 +1,32 @@
+import HeroInfoSection from "../components/HeroInfoSection";
+import HeaderSection from "../components/HeaderSection";
+import FloatingCartButton from "../components/FloatingCartButton";
+import PageLayout from "../../../layouts/PageLayout";
+import BannerSection from "../components/BannerSection";
+import MenuSection from "../components/MenuSection";
+import { useAddItem, useCartQuantity } from "../../cart/hooks/useCart";
+
+const MenuPage = () => {
+  const addItem = useAddItem();
+  const totalItem = useCartQuantity();
+
+  const handleAddToCart = (menu) => {
+    addItem(menu);
+  };
+
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <HeaderSection />
+      </PageLayout.Header>
+      <BannerSection />
+      <PageLayout.Container>
+        <HeroInfoSection />
+        <MenuSection onAddToCart={handleAddToCart} />
+      </PageLayout.Container>
+      <FloatingCartButton totalCartItem={totalItem} />
+    </PageLayout>
+  );
+};
+
+export default MenuPage;
