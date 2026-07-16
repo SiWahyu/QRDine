@@ -10,6 +10,7 @@ import {
   useClearCart,
   useDecreaseQuantity,
   useIncreaseQuantity,
+  useSaveNote,
 } from "../hooks/useCart";
 import PaymentFooter from "../components/PaymentFooter";
 import { PAYMENT } from "../../../constants/payment";
@@ -26,6 +27,8 @@ const CartPage = () => {
 
   const clearCart = useClearCart();
 
+  const saveNote = useSaveNote();
+
   return (
     <PageLayout>
       <PageLayout.Header title="Cart" />
@@ -41,6 +44,7 @@ const CartPage = () => {
               onDecrement={decreaseQuantity}
               onIncrement={increaseQuantity}
               items={items}
+              onSaveNote={saveNote}
             />
             <PaymentDetail quantity={quantity} subtotal={totalPrice} />
             <ClearCart onClear={clearCart} />

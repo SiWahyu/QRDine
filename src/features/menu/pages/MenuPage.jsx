@@ -5,6 +5,8 @@ import PageLayout from "../../../layouts/PageLayout";
 import BannerSection from "../components/BannerSection";
 import MenuSection from "../components/MenuSection";
 import { useAddItem, useCartQuantity } from "../../cart/hooks/useCart";
+import { useMenus } from "../hooks/useMenus";
+import { useCategories } from "../hooks/useCategories";
 
 const MenuPage = () => {
   const addItem = useAddItem();
@@ -14,6 +16,11 @@ const MenuPage = () => {
     addItem(menu);
   };
 
+  const { data: menus, isLoading: loadingMenus } = useMenus();
+  const { data: categories, isLoading: loadingCategories } = useCategories();
+
+  if (loadingMenus || loadingCategories) return <div>Loading...</div>;
+
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -22,7 +29,11 @@ const MenuPage = () => {
       <BannerSection />
       <PageLayout.Container>
         <HeroInfoSection />
-        <MenuSection onAddToCart={handleAddToCart} />
+        <MenuSection
+          menus={menus}
+          categories={categories}
+          onAddToCart={handleAddToCart}
+        />
       </PageLayout.Container>
       <FloatingCartButton totalCartItem={totalItem} />
     </PageLayout>

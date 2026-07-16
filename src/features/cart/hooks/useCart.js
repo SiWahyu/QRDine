@@ -23,3 +23,5 @@ export const useDecreaseQuantity = () =>
   useCartStore((state) => state.decreaseQuantity);
 
 export const useClearCart = () => useCartStore((state) => state.clearCart);
+
+export const useSaveNote = () => useCartStore((state) => state.saveNote);

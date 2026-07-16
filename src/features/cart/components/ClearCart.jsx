@@ -16,7 +16,6 @@ export function ClearCart({ onClear }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        asChild
         render={
           <button className="w-full px-6 py-3 mt-3 mb-40 font-semibold text-white bg-red-500 rounded-lg">
             Hapus Semua Pesanan

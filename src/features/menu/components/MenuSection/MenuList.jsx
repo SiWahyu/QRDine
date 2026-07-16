@@ -1,23 +1,26 @@
-import { categories } from "../../mocks/categories";
-import { menus } from "../../mocks/menus";
 import MenuCard from "./MenuCard";
 
-const MenuList = ({ sectionRefs, onAddToCart }) => {
+const MenuList = ({ menus, categories, sectionRefs, onAddToCart }) => {
+  console.log(menus[0], categories[0]);
   return (
     <>
       {categories
         .filter((category) => category.value !== "semua")
         .map((category) => {
           const menuByCategory = menus.filter(
-            (menu) => menu.category === category.value,
+            (menu) => menu.categoryId === category.id,
           );
+
+          console.log(category.id, menuByCategory);
 
           return (
             <section
               key={category.id}
-              id={category.value}
+              id={category.id}
               className="mb-10 scroll-mt-16"
-              ref={sectionRefs[category.value]}
+              ref={(el) => {
+                sectionRefs.current[category.value] = el;
+              }}
             >
               <h2 className="mb-4 text-xl font-semibold">{category.name}</h2>
 
@@ -33,6 +36,10 @@ const MenuList = ({ sectionRefs, onAddToCart }) => {
             </section>
           );
         })}
+
+      {menus.map((menu) => (
+        <p key={menu.id}>{menu.name}</p>
+      ))}
     </>
   );
 };

@@ -62,6 +62,14 @@ const useCartStore = create(
       clearCart: () => {
         set({ items: [] });
       },
+
+      saveNote: (id, note) => {
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === id ? { ...item, note } : item,
+          ),
+        }));
+      },
     }),
     {
       name: "cart-store",
