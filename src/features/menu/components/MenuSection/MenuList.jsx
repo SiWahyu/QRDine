@@ -36,10 +36,6 @@ const MenuList = ({ menus, categories, sectionRefs, onAddToCart }) => {
             </section>
           );
         })}
-
-      {menus.map((menu) => (
-        <p key={menu.id}>{menu.name}</p>
-      ))}
     </>
   );
 };

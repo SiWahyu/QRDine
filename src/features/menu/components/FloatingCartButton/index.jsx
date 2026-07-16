@@ -18,6 +18,7 @@ const FloatingCartButton = ({ totalCartItem = 0 }) => {
             <button
               onClick={handleClick}
               className="p-4 bg-blue-500 rounded-full "
+              name="cart"
             >
               <ShoppingCart className="text-white size-5.5 font-bold" />
             </button>
