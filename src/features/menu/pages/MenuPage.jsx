@@ -1,17 +1,22 @@
 import HeroInfoSection from "../components/HeroInfoSection";
 import HeaderSection from "../components/HeaderSection";
-import FloatingCartButton from "../components/FloatingCartButton";
 import PageLayout from "../../../layouts/PageLayout";
 import BannerSection from "../components/BannerSection";
 import MenuSection from "../components/MenuSection";
-import { useAddItem, useCartQuantity } from "../../cart/hooks/useCart";
+import {
+  useAddItem,
+  useCartQuantity,
+  useCartTotalPrice,
+} from "../../cart/hooks/useCart";
 import { useMenus } from "../hooks/useMenus";
 import { useCategories } from "../hooks/useCategories";
 import MenuSectionSkeleton from "../components/MenuSectionSkeleton";
+import CartFooter from "../components/CartFooter";
 
 const MenuPage = () => {
   const addItem = useAddItem();
-  const totalItem = useCartQuantity();
+  const totalCartItem = useCartQuantity();
+  const totalCartPrice = useCartTotalPrice();
 
   const handleAddToCart = (menu) => {
     addItem(menu);
@@ -38,7 +43,9 @@ const MenuPage = () => {
           />
         )}
       </PageLayout.Container>
-      <FloatingCartButton totalCartItem={totalItem} />
+      {totalCartItem > 0 && (
+        <CartFooter totalCartItem={totalCartItem} totalPrice={totalCartPrice} />
+      )}
     </PageLayout>
   );
 };

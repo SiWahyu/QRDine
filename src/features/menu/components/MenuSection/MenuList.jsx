@@ -1,7 +1,6 @@
 import MenuCard from "./MenuCard";
 
 const MenuList = ({ menus, categories, sectionRefs, onAddToCart }) => {
-  console.log(menus[0], categories[0]);
   return (
     <>
       {categories
@@ -11,13 +10,11 @@ const MenuList = ({ menus, categories, sectionRefs, onAddToCart }) => {
             (menu) => menu.categoryId === category.id,
           );
 
-          console.log(category.id, menuByCategory);
-
           return (
             <section
               key={category.id}
               id={category.id}
-              className="mb-10 scroll-mt-16"
+              className="mb-6 scroll-mt-16"
               ref={(el) => {
                 sectionRefs.current[category.value] = el;
               }}
