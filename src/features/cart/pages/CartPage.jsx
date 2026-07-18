@@ -12,7 +12,7 @@ import {
   useIncreaseQuantity,
   useSaveNote,
 } from "../hooks/useCart";
-import PaymentFooter from "../components/PaymentFooter";
+import CartFooter from "../components/CartFooter";
 import { PAYMENT } from "../../../constants/payment";
 import EmptyOrder from "../components/EmptyCart";
 import { ClearCart } from "../components/ClearCart";
@@ -52,7 +52,7 @@ const CartPage = () => {
         )}
       </PageLayout.Container>
       {items.length > 0 && (
-        <PaymentFooter totalPrice={totalPrice + PAYMENT.SERVICE_FEE} />
+        <CartFooter totalPrice={totalPrice + PAYMENT.SERVICE_FEE} />
       )}
     </PageLayout>
   );
