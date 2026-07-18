@@ -7,7 +7,7 @@ import {
 
 const MenuCard = ({ menu, onAddToCart }) => {
   return (
-    <Card className="shadow">
+    <Card className="border border-none">
       <CardHeader className="px-3">
         <img
           draggable="false"
