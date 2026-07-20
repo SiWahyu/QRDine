@@ -13,9 +13,10 @@ import {
   useSaveNote,
 } from "../hooks/useCart";
 import CartFooter from "../components/CartFooter";
-import { PAYMENT } from "../../../constants/payment";
 import EmptyOrder from "../components/EmptyCart";
 import { ClearCart } from "../components/ClearCart";
+import { calculateOrderTotal } from "../../../utils/calculateOrderTotal";
+import { useRestaurant } from "../../restaurant/hooks/useRestaurant";
 
 const CartPage = () => {
   const quantity = useCartQuantity();
@@ -29,6 +30,15 @@ const CartPage = () => {
 
   const saveNote = useSaveNote();
 
+  const { data: restaurant, isLoading: loadingCalculateOrder } =
+    useRestaurant();
+
+  const { subtotal, service, tax, total } = calculateOrderTotal(
+    totalPrice,
+    restaurant?.serviceCharge,
+    restaurant?.taxPercentage,
+  );
+
   return (
     <PageLayout>
       <PageLayout.Header title="Cart" />
@@ -37,7 +47,6 @@ const CartPage = () => {
           <EmptyOrder />
         ) : (
           <>
-            {" "}
             <OrderInfo />
             <TotalOrderItem total={quantity} />
             <OrderList
@@ -46,13 +55,23 @@ const CartPage = () => {
               items={items}
               onSaveNote={saveNote}
             />
-            <PaymentDetail quantity={quantity} subtotal={totalPrice} />
+            <PaymentDetail
+              quantity={quantity}
+              loadingCalculateOrder={loadingCalculateOrder}
+              serviceCharge={service}
+              taxPercentage={tax}
+              subtotal={subtotal}
+              total={total}
+            />
             <ClearCart onClear={clearCart} />
           </>
         )}
       </PageLayout.Container>
       {items.length > 0 && (
-        <CartFooter totalPrice={totalPrice + PAYMENT.SERVICE_FEE} />
+        <CartFooter
+          totalPrice={total}
+          loadingCalculateOrder={loadingCalculateOrder}
+        />
       )}
     </PageLayout>
   );

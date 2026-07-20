@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { formatCurrency } from "../../../../utils/formatCurrency";
 
-const CartFooter = ({ totalCartItem = 0, totalPrice = 0 }) => {
+const CartFooter = ({ totalCartItem = 0, subtotal = 0 }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -17,9 +17,7 @@ const CartFooter = ({ totalCartItem = 0, totalPrice = 0 }) => {
           <div className="flex items-center justify-between">
             <div className="flex flex-col items-start justify-center gap-1 text-sm">
               <span>Total</span>
-              <span className="font-semibold">
-                {formatCurrency(totalPrice)}
-              </span>
+              <span className="font-semibold">{formatCurrency(subtotal)}</span>
             </div>
             <span className="font-semibold">Checkout ({totalCartItem})</span>
           </div>

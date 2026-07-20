@@ -140,5 +140,14 @@
   "tables": [],
   "orders": [],
   "order_items": [],
-  "payments": []
+  "payments": [],
+  "restaurant": {
+    "id": 1,
+    "name": "QR Dine Demo",
+    "taxPercentage": 10,
+    "serviceCharge": 5,
+    "currency": "IDR",
+    "address": "",
+    "phone": ""
+  }
 }

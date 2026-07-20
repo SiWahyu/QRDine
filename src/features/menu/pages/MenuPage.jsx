@@ -24,7 +24,6 @@ const MenuPage = () => {
 
   const { data: menus, isLoading: loadingMenus } = useMenus();
   const { data: categories, isLoading: loadingCategories } = useCategories();
-
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -44,7 +43,7 @@ const MenuPage = () => {
         )}
       </PageLayout.Container>
       {totalCartItem > 0 && (
-        <CartFooter totalCartItem={totalCartItem} totalPrice={totalCartPrice} />
+        <CartFooter totalCartItem={totalCartItem} subtotal={totalCartPrice} />
       )}
     </PageLayout>
   );
