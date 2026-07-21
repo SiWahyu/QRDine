@@ -1,11 +1,6 @@
 {
   "categories": [
     {
-      "id": 0,
-      "name": "Semua",
-      "value": "semua"
-    },
-    {
       "id": 1,
       "name": "Paket Makanan dan Minuman",
       "value": "paketmakanandanminuman"
