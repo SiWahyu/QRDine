@@ -10,7 +10,7 @@ import {
 const FormCustomerInformation = ({ tableNumber = 10 }) => {
   return (
     <div className="mt-6">
-      <h2 className="font-semibold ">Customer Information</h2>
+      <h2 className="font-semibold text-text">Customer Information</h2>
       <div className="flex flex-col gap-6 mt-4">
         <Field className="w-full">
           <FieldLabel htmlFor="fullName">Full Name</FieldLabel>
@@ -25,7 +25,7 @@ const FormCustomerInformation = ({ tableNumber = 10 }) => {
             </InputGroupAddon>
           </InputGroup>
         </Field>
-        <Field className="w-full">
+        <Field className="w-full ">
           <FieldLabel htmlFor="phone">Phone Number</FieldLabel>
           <InputGroup className="py-5 ">
             <InputGroupInput

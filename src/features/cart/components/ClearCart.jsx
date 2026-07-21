@@ -17,7 +17,7 @@ export function ClearCart({ onClear }) {
     <AlertDialog>
       <AlertDialogTrigger
         render={
-          <button className="w-full px-6 py-3 mt-3 mb-40 font-semibold text-white bg-red-500 rounded-lg">
+          <button className="w-full px-6 py-3 mt-3 mb-40 font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 active:scale-[0.98] transition-all">
             Hapus Semua Pesanan
           </button>
         }
@@ -39,7 +39,7 @@ export function ClearCart({ onClear }) {
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={onClear}
-            className="py-5 text-white bg-red-500"
+            className="py-5 text-white bg-red-500 "
           >
             Lanjut
           </AlertDialogAction>

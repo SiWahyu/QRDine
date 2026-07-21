@@ -8,11 +8,11 @@ const TotalOrderItem = ({ total = 2 }) => {
   };
 
   return (
-    <div className="flex items-center justify-between pb-4 mt-6 border-b border-neutral-300/90">
-      <h2 className="font-semibold ">Ordered Items ({total})</h2>
+    <div className="flex items-center justify-between pb-4 mt-6 border-b border-neutral-200">
+      <h2 className="font-semibold text-text">Ordered Items ({total})</h2>
       <button
         onClick={handleClick}
-        className="px-3 py-0.5 text-sm border-indigo-800 text-indigo-800 border rounded-md font-medium"
+        className="px-3 py-1 text-sm font-medium transition-colors duration-200 border rounded-md border-customer-primary text-customer-primary hover:bg-customer-primary hover:text-white active:bg-customer-primary"
       >
         + Add Item
       </button>

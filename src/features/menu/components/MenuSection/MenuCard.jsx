@@ -5,33 +5,31 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
+import { formatCurrency } from "@/utils/formatCurrency";
+
 const MenuCard = ({ menu, onAddToCart }) => {
   return (
-    <Card className="border border-none">
+    <Card className="overflow-hidden transition-shadow border shadow-none border-neutral-200 hover:shadow-sm">
       <CardHeader className="px-3">
         <img
           draggable="false"
-          className="w-full h-35 rounded-xl"
+          className="object-cover w-full rounded-lg h-36"
           src={menu.image}
           alt={menu.name}
         />
       </CardHeader>
       <CardContent>
-        <div className="font-medium">{menu.name}</div>
-        <div className="mt-2 text-sm font-medium text-red-500">
-          {menu.price.toLocaleString("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0,
-          })}
+        <div className="font-semibold line-clamp-2 text-text">{menu.name}</div>
+        <div className="mt-2 font-semibold text-customer-accent">
+          {formatCurrency(menu.price)}
         </div>
       </CardContent>
-      <CardFooter className="pt-2 bg-white border-t-0">
+      <CardFooter className="-mt-2 bg-white border-t-0">
         <button
           onClick={() => onAddToCart(menu)}
-          className="w-full py-1 text-sm transition-colors duration-200 border rounded-md border-blue-600/50 text-neutral-900 hover:bg-blue-600 hover:text-white active:bg-blue-600 active:text-white"
+          className="w-full py-2 transition-colors border rounded-lg border-customer-primary text-text hover:bg-customer-primary hover:text-white active:bg-customer-primarya active:text-white active:bg-customer-primary"
         >
-          Tambah
+          + Tambah
         </button>
       </CardFooter>
     </Card>

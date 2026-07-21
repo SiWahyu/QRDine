@@ -12,14 +12,16 @@ const CartFooter = ({ totalCartItem = 0, subtotal = 0 }) => {
       <div className="flex flex-row max-w-lg px-4 py-0 mx-auto">
         <button
           onClick={handleClick}
-          className="w-full px-4 py-2.5 bg-blue-700 shadow-xl  rounded-xl text-white"
+          className="w-full px-4 py-3 bg-customer-primary shadow-lg  rounded-xl text-white hover:brightness-95 active:scale-[0.98] transition-all"
         >
           <div className="flex items-center justify-between">
             <div className="flex flex-col items-start justify-center gap-1 text-sm">
-              <span>Total</span>
-              <span className="font-semibold">{formatCurrency(subtotal)}</span>
+              <span className="text-sm">Total</span>
+              <span className="text-lg font-bold">
+                {formatCurrency(subtotal)}
+              </span>
             </div>
-            <span className="font-semibold">Checkout ({totalCartItem})</span>
+            <span className="font-bold">Checkout ({totalCartItem})</span>
           </div>
         </button>
       </div>

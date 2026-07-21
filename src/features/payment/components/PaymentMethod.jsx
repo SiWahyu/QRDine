@@ -8,7 +8,7 @@ export const title = "Tabs with Cards";
 
 const PaymentMethod = ({ onValueChange }) => {
   return (
-    <div className="mt-10 pb-28">
+    <div className="mt-10 pb-36">
       <Tabs
         className="w-full"
         defaultValue="online"
@@ -17,24 +17,24 @@ const PaymentMethod = ({ onValueChange }) => {
         <div className="w-full">
           <TabsList className="min-w-full space-x-3 bg-transparent w-max">
             <TabsTrigger
-              className="flex flex-row justify-center gap-3 py-6 font-medium data-active:border-blue-800 border-neutral-300"
+              className="flex flex-row justify-center gap-3 px-4 py-6 font-medium data-active:border-blue-800 border-neutral-300"
               value="online"
             >
               <img
                 src={onlinePayment}
                 alt="online payment"
-                className="w-10 bg-green-200 rounded-xl py-0.5 scale-x-[-1]"
+                className="w-8 bg-green-200 rounded-xl scale-x-[-1]"
               />
               Online Payment
             </TabsTrigger>
             <TabsTrigger
-              className="flex flex-row justify-center gap-3 py-6 font-medium data-active:border-blue-800 border-neutral-300"
+              className="flex flex-row justify-center gap-3 px-3 py-6 font-medium data-active:border-blue-800 border-neutral-300"
               value="cashier"
             >
               <img
                 src={cashierPayment}
                 alt="online payment"
-                className="w-10 bg-green-200 rounded-xl py-0.5 scale-x-[-1]"
+                className="w-8 bg-green-200 rounded-xl scale-x-[-1]"
               />
               Bayar di Kasir
             </TabsTrigger>

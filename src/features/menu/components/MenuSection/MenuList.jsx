@@ -14,12 +14,14 @@ const MenuList = ({ menus, categories, sectionRefs, onAddToCart }) => {
             <section
               key={category.id}
               id={category.id}
-              className="mb-6 scroll-mt-16"
+              className="mt-4 mb-6 scroll-mt-16"
               ref={(el) => {
                 sectionRefs.current[category.value] = el;
               }}
             >
-              <h2 className="mb-4 text-xl font-semibold">{category.name}</h2>
+              <h2 className="mb-4 text-lg font-semibold text-text">
+                {category.name}
+              </h2>
 
               <div className="grid grid-cols-2 gap-3">
                 {menuByCategory.map((menu) => (

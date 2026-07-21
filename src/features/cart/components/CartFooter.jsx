@@ -11,21 +11,21 @@ const CartFooter = ({ totalPrice = 0, loadingCalculateOrder }) => {
   };
   return (
     <BottomActionBar>
-      <div className="flex items-center justify-between px-4 py-5 border-t-4 border-x border-t-neutral-300 border-x-neutral-300 rounded-xl">
-        <div className="flex flex-col gap-2">
-          <h2 className="font-medium">Total Payment</h2>
+      <div className="flex items-center justify-between px-4 py-6 border-t-4 pt-7 border-x border-t-neutral-200 border-x-neutral-200 rounded-xl">
+        <div className="flex flex-col gap-[10.5px]">
+          <h2 className="font-medium text-text"> Payment Total</h2>
 
           {loadingCalculateOrder ? (
-            <Skeleton className="w-full h-4 bg-neutral-400/60" />
+            <Skeleton className="w-full h-4 bg-neutral-200" />
           ) : (
-            <div className="text-lg font-bold">
+            <div className="text-lg font-bold text-customer-primary">
               {formatCurrency(totalPrice)}
             </div>
           )}
         </div>
         <button
           onClick={handleClick}
-          className="px-4 py-3.5 font-semibold text-white bg-blue-800 rounded-lg h-fit"
+          className="px-4 py-3.5 self-end font-semibold text-white bg-customer-primary hover:bg-blue-700 active:bg-blue-700 rounded-lg h-fit active:scale-[0.98] transition-all"
         >
           Continue to Payment
         </button>
