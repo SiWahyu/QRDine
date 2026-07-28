@@ -3,7 +3,7 @@ import CategoryTabs from "./CategoryTabs";
 import MenuList from "./MenuList";
 
 const MenuSection = ({ menus, categories, onAddToCart }) => {
-  const [categoryActive, setCategoryActive] = useState(categories[0]?.value);
+  const [categoryActive, setCategoryActive] = useState(categories[0]?.slug);
 
   const sectionRefs = useRef({});
 

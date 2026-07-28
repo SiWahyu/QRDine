@@ -35,8 +35,8 @@ const CartPage = () => {
 
   const { subtotal, service, tax, total } = calculateOrderTotal(
     totalPrice,
-    restaurant?.serviceCharge,
-    restaurant?.taxPercentage,
+    restaurant?.service_charge,
+    restaurant?.tax_percentage,
   );
 
   return (

@@ -14,7 +14,7 @@ const MenuCard = ({ menu, onAddToCart }) => {
         <img
           draggable="false"
           className="object-cover w-full rounded-lg h-36"
-          src={menu.image}
+          src={menu.image.replace("/storage/", "")}
           alt={menu.name}
         />
       </CardHeader>

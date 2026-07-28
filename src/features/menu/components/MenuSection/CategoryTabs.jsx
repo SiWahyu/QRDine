@@ -9,10 +9,10 @@ const CategoryTabs = ({
 }) => {
   const tabRefs = useRef({});
 
-  const handleChange = (value) => {
-    setCategoryActive(value);
+  const handleChange = (slug) => {
+    setCategoryActive(slug);
 
-    sectionRefs.current[value]?.scrollIntoView({
+    sectionRefs.current[slug]?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -35,9 +35,9 @@ const CategoryTabs = ({
               <TabsTrigger
                 className="px-4 py-4 shrink-0 hover:bg-customer-secondary data-active:after:bg-customer-primary data-active:after:h-1 data-active:text-customer-primary data-active:font-semibold data-active:hover:text-customer-primary"
                 key={item.id}
-                value={item.value}
+                value={item.slug}
                 ref={(el) => {
-                  tabRefs.current[item.value] = el;
+                  tabRefs.current[item.slug] = el;
                 }}
               >
                 {item.name}

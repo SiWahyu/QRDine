@@ -16,8 +16,8 @@ const PaymentPage = () => {
 
   const { subtotal, total, service, tax } = calculateOrderTotal(
     totalPrice,
-    restaurant?.serviceCharge,
-    restaurant?.taxPercentage,
+    restaurant?.service_charge,
+    restaurant?.tax_percentage,
   );
 
   const [paymentMethod, setPaymentMethod] = useState("online");

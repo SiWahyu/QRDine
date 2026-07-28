@@ -24,6 +24,7 @@ const MenuPage = () => {
 
   const { data: menus, isLoading: loadingMenus } = useMenus();
   const { data: categories, isLoading: loadingCategories } = useCategories();
+
   return (
     <PageLayout>
       <PageLayout.Header>

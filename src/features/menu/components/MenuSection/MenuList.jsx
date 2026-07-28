@@ -5,7 +5,7 @@ const MenuList = ({ menus, categories, sectionRefs, onAddToCart }) => {
     <>
       {categories.map((category) => {
         const menuByCategory = menus.filter(
-          (menu) => menu.categoryId === category.id,
+          (menu) => menu.category_id === category.id,
         );
 
         return (
@@ -14,9 +14,9 @@ const MenuList = ({ menus, categories, sectionRefs, onAddToCart }) => {
             id={category.id}
             className="mt-4 mb-6 scroll-mt-16"
             ref={(el) => {
-              sectionRefs.current[category.value] = el;
+              sectionRefs.current[category.slug] = el;
             }}
-            data-category={category.value}
+            data-category={category.slug}
           >
             <h2 className="mb-4 text-lg font-semibold text-text">
               {category.name}
