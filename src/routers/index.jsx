@@ -1,14 +1,19 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { MenuPage } from "@/features/menu";
 import { CartPage } from "@/features/cart";
 import PaymentPage from "../features/payment/pages/PaymentPage";
 import TablePage from "../features/table/pages/TablePage";
 import TableGuard from "../features/table/components/TabelGuard";
+import ScannerPage from "../features/scanner/pages/ScannerPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello World</div>,
+    element: <Navigate to="/scanner" replace />,
+  },
+  {
+    path: "/scanner",
+    element: <ScannerPage />,
   },
   {
     path: "/menu",

@@ -5,7 +5,7 @@ export default function TableGuard({ children }) {
   const table = useTableStore((state) => state.table);
 
   if (!table) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/scanner" replace />;
   }
 
   return children;

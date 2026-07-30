@@ -1,14 +1,10 @@
 import HeroInfo from "./HeroInfo";
 
-const HeroInfoSection = () => {
+const HeroInfoSection = ({ name, openAt, closeAt, tableNumber }) => {
   return (
     <HeroInfo>
-      <HeroInfo.Store
-        name="Lorem Ipsum - Tebet"
-        openAt="08:00"
-        closeAt="22:00"
-      />
-      <HeroInfo.TableNumber number={1} />
+      <HeroInfo.Store name={name} openAt={openAt} closeAt={closeAt} />
+      <HeroInfo.TableNumber number={tableNumber} />
     </HeroInfo>
   );
 };

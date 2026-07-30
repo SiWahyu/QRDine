@@ -12,6 +12,8 @@ import { useMenus } from "../hooks/useMenus";
 import { useCategories } from "../hooks/useCategories";
 import MenuSectionSkeleton from "../components/MenuSectionSkeleton";
 import CartFooter from "../components/CartFooter";
+import { useCurrentTable } from "../../table/hooks/useCurrentTable";
+import { useRestaurant } from "../../restaurant/hooks/useRestaurant";
 
 const MenuPage = () => {
   const addItem = useAddItem();
@@ -25,6 +27,10 @@ const MenuPage = () => {
   const { data: menus, isLoading: loadingMenus } = useMenus();
   const { data: categories, isLoading: loadingCategories } = useCategories();
 
+  const table = useCurrentTable();
+
+  const { data: restaurant } = useRestaurant();
+
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -32,7 +38,7 @@ const MenuPage = () => {
       </PageLayout.Header>
       <BannerSection />
       <PageLayout.Container>
-        <HeroInfoSection />
+        <HeroInfoSection name={restaurant?.name} tableNumber={table.number} />
         {loadingCategories || loadingMenus ? (
           <MenuSectionSkeleton />
         ) : (
