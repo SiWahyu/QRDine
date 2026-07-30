@@ -16,6 +16,7 @@ const PaymentFooter = ({
   total = 0,
   loadingCalculateOrder,
   paymentMethod,
+  onSubmit,
 }) => {
   return (
     <BottomActionBar>
@@ -79,7 +80,10 @@ const PaymentFooter = ({
                   </span>
                 )}
               </div>
-              <button className="px-4 py-3.5 self-end font-semibold text-white bg-customer-primary hover:bg-blue-700 active:bg-blue-700 rounded-lg h-fit active:scale-[0.98] transition-all">
+              <button
+                className="px-4 py-3.5 self-end font-semibold text-white bg-customer-primary hover:bg-blue-700 active:bg-blue-700 rounded-lg h-fit active:scale-[0.98] transition-all"
+                onClick={onSubmit}
+              >
                 {paymentMethod === "online"
                   ? "Online Payment"
                   : "Bayar di Kasir"}

@@ -8,6 +8,10 @@ import { calculateOrderTotal } from "../../../utils/calculateOrderTotal";
 import { useCartTotalPrice } from "../../cart/hooks/useCart";
 import { useState } from "react";
 
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { paymentSchema } from "../schemas/paymentSchema";
+
 const PaymentPage = () => {
   const { data: restaurant, isLoading: loadingCalculateOrder } =
     useRestaurant();
@@ -26,23 +30,39 @@ const PaymentPage = () => {
     setPaymentMethod(value);
   };
 
+  const methods = useForm({
+    resolver: zodResolver(paymentSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
-    <PageLayout>
-      <PageLayout.Header title="Payment" />
-      <PageLayout.Container>
-        <OrderInfo />
-        <FormCustomerInformation />
-        <PaymentMethod onValueChange={handlePaymentMethod} />
-      </PageLayout.Container>
-      <PaymentFooter
-        subtotal={subtotal}
-        serviceCharge={service}
-        taxPercentage={tax}
-        total={total}
-        paymentMethod={paymentMethod}
-        loadingCalculateOrder={loadingCalculateOrder}
-      />
-    </PageLayout>
+    <FormProvider {...methods}>
+      <PageLayout>
+        <PageLayout.Header title="Payment" />
+        <PageLayout.Container>
+          <OrderInfo />
+          <FormCustomerInformation />
+          <PaymentMethod onValueChange={handlePaymentMethod} />
+        </PageLayout.Container>
+        <PaymentFooter
+          subtotal={subtotal}
+          serviceCharge={service}
+          taxPercentage={tax}
+          total={total}
+          paymentMethod={paymentMethod}
+          loadingCalculateOrder={loadingCalculateOrder}
+          onSubmit={methods.handleSubmit(onSubmit)}
+        />
+      </PageLayout>
+    </FormProvider>
   );
 };
 
