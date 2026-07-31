@@ -4,11 +4,17 @@ const HeaderSection = () => {
   return (
     <header className="sticky z-10 bg-transparent -mb-17">
       <div className="flex items-center justify-end gap-3 px-4 py-3">
-        <button className="p-3 bg-white rounded-full" name="search">
-          <Search className="text-neutral-700 size-5" />
+        <button
+          className="p-3 bg-white/70 backdrop-blur-md rounded-full"
+          name="search"
+        >
+          <Search className="text-neutral-800 size-5" strokeWidth={2.4} />
         </button>
-        <button className="p-3 bg-white rounded-full" name="menu">
-          <Menu className="text-neutral-700 size-5" />
+        <button
+          className="p-3 bg-white/70 backdrop-blur-md rounded-full"
+          name="menu"
+        >
+          <Menu className="text-neutral-800 size-5" strokeWidth={2.4} />
         </button>
       </div>
     </header>
