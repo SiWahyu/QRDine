@@ -25,7 +25,7 @@ const CartFooter = ({ totalPrice = 0, loadingCalculateOrder }) => {
         </div>
         <button
           onClick={handleClick}
-          className="px-4 py-3.5 self-end font-semibold text-white bg-customer-primary hover:bg-blue-700 active:bg-blue-700 rounded-lg h-fit active:scale-[0.98] transition-all"
+          className="px-4 py-3.5 self-end font-semibold text-white bg-customer-primary/90 hover:bg-customer-primary active:bg-customer-primary rounded-lg h-fit active:scale-[0.98] transition-all"
         >
           Continue to Payment
         </button>

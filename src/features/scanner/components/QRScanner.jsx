@@ -5,7 +5,7 @@ import { Scanner } from "@yudiel/react-qr-scanner";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { SCANNER_SOUND } from "../constants/scanner-sound";
+import { SCANNER_SOUND2 } from "../constants/scanner-sound";
 import ScannerOverlay from "./ScannerOverlay";
 import QRScan from "@/assets/images/scanner/QRScan.svg";
 
@@ -21,7 +21,7 @@ export default function QRScanner() {
 
     setTimeout(() => {
       navigate(url.pathname);
-    }, 1000);
+    }, 1500);
   };
 
   const [isScanning, setIsScanning] = useState(false);
@@ -62,7 +62,7 @@ export default function QRScanner() {
                     zoom: true, // Show zoom control (if supported)
                     finder: false, // Show finder overlay
                   }}
-                  sound={SCANNER_SOUND}
+                  sound={SCANNER_SOUND2}
                 />
 
                 <ScannerOverlay />
