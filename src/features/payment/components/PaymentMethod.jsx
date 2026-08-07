@@ -3,62 +3,70 @@ import onlinePayment from "@/assets/images/payment/online-payment.png";
 import cashierPayment from "@/assets/images/payment/cashier-payment.png";
 import paymentAtCashier from "@/assets/images/payment/payment-at-cashier.jpg";
 import { PaymentMethodOption } from "./PaymentMethodOption";
+import { Controller, useFormContext } from "react-hook-form";
 
 export const title = "Tabs with Cards";
 
-const PaymentMethod = ({ onValueChange }) => {
+const PaymentMethod = () => {
+  const { control } = useFormContext();
   return (
     <div className="mt-10 pb-36">
-      <Tabs
-        className="w-full"
-        defaultValue="online"
-        onValueChange={onValueChange}
-      >
-        <div className="w-full">
-          <TabsList className="min-w-full space-x-3 bg-transparent w-max">
-            <TabsTrigger
-              className="flex flex-row justify-center gap-3 px-4 py-6 font-medium data-active:border-blue-800 border-neutral-300"
-              value="online"
-            >
-              <img
-                src={onlinePayment}
-                alt="online payment"
-                className="w-8 bg-green-200 rounded-xl scale-x-[-1]"
-              />
-              Online Payment
-            </TabsTrigger>
-            <TabsTrigger
-              className="flex flex-row justify-center gap-3 px-3 py-6 font-medium data-active:border-blue-800 border-neutral-300"
-              value="cashier"
-            >
-              <img
-                src={cashierPayment}
-                alt="online payment"
-                className="w-8 bg-green-200 rounded-xl scale-x-[-1]"
-              />
-              Bayar di Kasir
-            </TabsTrigger>
-          </TabsList>
-        </div>
-        <TabsContent value="online">
-          <div className="mt-3">
-            <PaymentMethodOption />
-          </div>
-        </TabsContent>
-        <TabsContent value="cashier">
-          <div className="text-center">
-            <img
-              src={paymentAtCashier}
-              alt="online payment"
-              className="w-full"
-            />
-            <p className="text-neutral-600">
-              Klik <span className="font-semibold"> 'Bayar di Kasir' </span>
-              dan tunjukan QR Code ke kasir.
-            </p>
-          </div>
-        </TabsContent>
-      </Tabs>
+      <Controller
+        render={({ field }) => (
+          <Tabs
+            className="w-full"
+            value={field.value}
+            onValueChange={field.onChange}
+          >
+            <div className="w-full">
+              <TabsList className="min-w-full space-x-3 bg-transparent w-max">
+                <TabsTrigger
+                  className="flex flex-row justify-center gap-3 px-4 py-6 font-medium data-active:border-blue-800 border-neutral-300"
+                  value="online"
+                >
+                  <img
+                    src={onlinePayment}
+                    alt="online payment"
+                    className="w-8 bg-green-200 rounded-xl scale-x-[-1]"
+                  />
+                  Online Payment
+                </TabsTrigger>
+                <TabsTrigger
+                  className="flex flex-row justify-center gap-3 px-3 py-6 font-medium data-active:border-blue-800 border-neutral-300"
+                  value="cash"
+                >
+                  <img
+                    src={cashierPayment}
+                    alt="online payment"
+                    className="w-8 bg-green-200 rounded-xl scale-x-[-1]"
+                  />
+                  Bayar di Kasir
+                </TabsTrigger>
+              </TabsList>
+            </div>
+            <TabsContent value="online">
+              <div className="mt-3">
+                <PaymentMethodOption />
+              </div>
+            </TabsContent>
+            <TabsContent value="cash">
+              <div className="text-center">
+                <img
+                  src={paymentAtCashier}
+                  alt="online payment"
+                  className="w-full"
+                />
+                <p className="text-neutral-600">
+                  Klik <span className="font-semibold"> 'Bayar di Kasir' </span>
+                  dan tunjukan QR Code ke kasir.
+                </p>
+              </div>
+            </TabsContent>
+          </Tabs>
+        )}
+        name="paymentMethod"
+        control={control}
+      />
     </div>
   );
 };
