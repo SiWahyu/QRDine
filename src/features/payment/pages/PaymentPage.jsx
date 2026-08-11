@@ -70,7 +70,6 @@ const PaymentPage = () => {
 
     const handleOrderPaid = () => {
       setPaymentSuccess(true);
-      setPaymentOrderNumber(paymentOrderNumber);
       clearOrder();
       navigate("/payment-success", { replace: true });
     };
@@ -124,16 +123,22 @@ const PaymentPage = () => {
 
       const createdOrder = response.data;
 
-      if (paymentMethod === "online") {
-        setPaymentOrderNumber(createdOrder.order_number);
+      setPaymentOrderNumber(createdOrder.order_number);
 
+      if (paymentMethod === "online") {
         const paymentResponse = await createPayment(createdOrder.order_number);
 
         const snapToken = paymentResponse.data.snap_token;
 
         const snap = await loadMidtransSnap();
 
-        snap.pay(snapToken);
+        snap.pay(snapToken, {
+          onSuccess: () => {
+            setPaymentSuccess(true);
+            clearOrder();
+            navigate("/payment-success", { replace: true });
+          },
+        });
       }
 
       if (paymentMethod === "cash") {

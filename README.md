@@ -271,7 +271,7 @@ src/
 - ✅ Pembayaran online dengan Midtrans
 - ✅ Realtime payment notification dengan Pusher
 - ✅ Payment success flow
-- ⏳ Email receipt
+- ✅ Email receipt
 - ⏳ Layar status pesanan
 - ⏳ Riwayat pesanan
 
