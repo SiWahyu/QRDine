@@ -25,13 +25,15 @@ const Header = ({ children, title }) => {
   };
 
   return (
-    <header className="flex p-4 shadow-md">
-      <button onClick={handleClick}>
-        <MoveLeft className="size-7.5" strokeWidth={2.3} />
-      </button>
-      <h1 className="flex-1 text-lg font-semibold text-center text-text">
-        {title}
-      </h1>
+    <header className="sticky top-0 bottom-0 left-0 right-0 z-50">
+      <div className="flex items-center justify-center max-w-lg p-4 mx-auto bg-white shadow-md">
+        <button onClick={handleClick}>
+          <MoveLeft className="size-7.5" strokeWidth={2.3} />
+        </button>
+        <h1 className="flex-1 text-lg font-semibold text-center text-text">
+          {title}
+        </h1>
+      </div>
     </header>
   );
 };

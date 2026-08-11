@@ -5,6 +5,11 @@ export const createOrder = async (payload) => {
 
   return data;
 };
+export const getOrderByNumber = async (orderNumber) => {
+  const { data } = await api.get(`/orders/${orderNumber}`);
+
+  return data.data;
+};
 
 export const cancelOrder = async (orderId) => {
   const { data } = await api.patch(`/orders/${orderId}/cancel`);

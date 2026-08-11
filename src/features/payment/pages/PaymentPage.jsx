@@ -5,11 +5,7 @@ import PaymentMethod from "../components/PaymentMethod";
 import PaymentFooter from "../components/PaymentFooter";
 import { useRestaurant } from "../../restaurant/hooks/useRestaurant";
 import { calculateOrderTotal } from "../../../utils/calculateOrderTotal";
-import {
-  useCartItems,
-  useCartTotalPrice,
-  useClearCart,
-} from "../../cart/hooks/useCart";
+import { useCartItems, useCartTotalPrice } from "../../cart/hooks/useCart";
 
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,15 +21,19 @@ import {
 import CreateOrderLoading from "../components/CreateOrderLoading";
 import PaymentCashierDialog from "../components/PaymentCashierDialog";
 import { useCancelOrder } from "../../order/hooks/useCancelOrder";
-import { usePayOrder } from "../../order/hooks/usePayOrder";
-import { useState } from "react";
-import PaymentSuccessDialog from "../components/PaymentSuccessDialog";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { pusher } from "../../../lib/pusher";
+import {
+  useSetPaymentSuccess,
+  useSetPaymentOrderNumber,
+  usePaymentOrderNumber,
+} from "../hooks/usePayment";
+import { useCreatePayment } from "../hooks/useCreatePayment";
+import { loadMidtransSnap } from "@/lib/midtrans";
 
 const PaymentPage = () => {
   const navigate = useNavigate();
-
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const { data: restaurant, isLoading: loadingCalculateOrder } =
     useRestaurant();
@@ -41,7 +41,6 @@ const PaymentPage = () => {
   const totalPrice = useCartTotalPrice();
   const table = useCurrentTable();
   const items = useCartItems();
-  const clearCart = useClearCart();
 
   const setOrder = useSetOrder();
   const order = useOrder();
@@ -53,11 +52,42 @@ const PaymentPage = () => {
     restaurant?.tax_percentage,
   );
 
+  const setPaymentSuccess = useSetPaymentSuccess();
+  const setPaymentOrderNumber = useSetPaymentOrderNumber();
+  const paymentOrderNumber = usePaymentOrderNumber();
+
+  const { mutateAsync: createPayment } = useCreatePayment();
+
   const { mutateAsync: createOrder, isPending: isPendingCreateOrder } =
     useCreateOrder();
   const { mutateAsync: cancelOrder, isPending: isPendingCancelOrder } =
     useCancelOrder();
-  const { mutateAsync: payOrder, isPending: isPendingPayOrder } = usePayOrder();
+
+  useEffect(() => {
+    if (!paymentOrderNumber) return;
+
+    const channel = pusher.subscribe(`order.${paymentOrderNumber}`);
+
+    const handleOrderPaid = () => {
+      setPaymentSuccess(true);
+      setPaymentOrderNumber(paymentOrderNumber);
+      clearOrder();
+      navigate("/payment-success", { replace: true });
+    };
+
+    channel.bind("order-paid", handleOrderPaid);
+
+    return () => {
+      channel.unbind("order-paid");
+      pusher.unsubscribe(`order.${paymentOrderNumber}`);
+    };
+  }, [
+    paymentOrderNumber,
+    clearOrder,
+    navigate,
+    setPaymentSuccess,
+    setPaymentOrderNumber,
+  ]);
 
   const methods = useForm({
     resolver: zodResolver(paymentSchema),
@@ -90,9 +120,24 @@ const PaymentPage = () => {
         })),
       };
 
+      const response = await createOrder(payload);
+
+      const createdOrder = response.data;
+
+      if (paymentMethod === "online") {
+        setPaymentOrderNumber(createdOrder.order_number);
+
+        const paymentResponse = await createPayment(createdOrder.order_number);
+
+        const snapToken = paymentResponse.data.snap_token;
+
+        const snap = await loadMidtransSnap();
+
+        snap.pay(snapToken);
+      }
+
       if (paymentMethod === "cash") {
-        const response = await createOrder(payload);
-        setOrder(response.data);
+        setOrder(createdOrder);
       }
     } catch (error) {
       console.log(error);
@@ -106,23 +151,6 @@ const PaymentPage = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleTestPayment = async () => {
-    try {
-      await payOrder(order.order_number);
-
-      clearOrder();
-      setPaymentSuccess(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleSuccessClose = () => {
-    setPaymentSuccess(false);
-    clearCart();
-    navigate("/menu");
   };
 
   return (
@@ -145,20 +173,11 @@ const PaymentPage = () => {
           loadingCalculateOrder={loadingCalculateOrder}
           onSubmit={methods.handleSubmit(onSubmit)}
         />
-        {order && (
+        {order?.payment_method === "cash" && (
           <PaymentCashierDialog
             order={order}
             onCancel={handleCancelOrder}
             isPendingCancelOrder={isPendingCancelOrder}
-            isPendingPayOrder={isPendingPayOrder}
-            onTestPayment={handleTestPayment}
-          />
-        )}
-        {paymentSuccess && (
-          <PaymentSuccessDialog
-            open={paymentSuccess}
-            onOpenChange={setPaymentSuccess}
-            onClose={handleSuccessClose}
           />
         )}
       </PageLayout>

@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import onlinePayment from "@/assets/images/payment/online-payment.png";
 import cashierPayment from "@/assets/images/payment/cashier-payment.png";
-import paymentAtCashier from "@/assets/images/payment/payment-at-cashier.jpg";
-import { PaymentMethodOption } from "./PaymentMethodOption";
+import paymentCash from "@/assets/images/payment/payment-cash.svg";
+import paymentOnline from "@/assets/images/payment/payment-online.svg";
 import { Controller, useFormContext } from "react-hook-form";
 
 export const title = "Tabs with Cards";
@@ -46,13 +46,24 @@ const PaymentMethod = () => {
             </div>
             <TabsContent value="online">
               <div className="mt-3">
-                <PaymentMethodOption />
+                <div className="flex flex-col items-center justify-center">
+                  <img
+                    src={paymentOnline}
+                    alt="online payment"
+                    className="w-3/4"
+                  />
+                  <p className="text-neutral-600">
+                    Klik{" "}
+                    <span className="font-semibold"> 'Online Payment' </span>
+                    untuk membayar secara online.
+                  </p>
+                </div>
               </div>
             </TabsContent>
             <TabsContent value="cash">
               <div className="text-center">
                 <img
-                  src={paymentAtCashier}
+                  src={paymentCash}
                   alt="online payment"
                   className="w-full"
                 />

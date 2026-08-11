@@ -10,13 +10,7 @@ import { ReactQRCode } from "@lglab/react-qr-code";
 
 import { Button } from "@/components/ui/button";
 
-const PaymentCashierDialog = ({
-  order,
-  onCancel,
-  onTestPayment,
-  isPendingCancelOrder,
-  isPendingPayOrder,
-}) => {
+const PaymentCashierDialog = ({ order, onCancel, isPendingCancelOrder }) => {
   return (
     <AlertDialog open={true}>
       <AlertDialogContent>
@@ -41,24 +35,14 @@ const PaymentCashierDialog = ({
           />
         </div>
         <AlertDialogFooter>
-          <div className="flex flex-col w-full gap-4">
-            <Button
-              onClick={onCancel}
-              type="button"
-              disabled={isPendingCancelOrder}
-              className="bg-red-500 py-5 w-full hover:bg-red-600 active:bg-red-600 active:scale-[0.98] transition-all"
-            >
-              {isPendingCancelOrder ? "Loading..." : "Batalkan Pesanan"}
-            </Button>
-            <Button
-              onClick={onTestPayment}
-              type="button"
-              disabled={isPendingPayOrder}
-              className="bg-blue-500 py-5 w-full hover:bg-blue-600 active:bg-blue-600 active:scale-[0.98] transition-all"
-            >
-              {isPendingPayOrder ? "Memproses..." : "Test Bayar Kasir"}
-            </Button>
-          </div>
+          <Button
+            onClick={onCancel}
+            type="button"
+            disabled={isPendingCancelOrder}
+            className="bg-red-500 py-5 w-full hover:bg-red-600 active:bg-red-600 active:scale-[0.98] transition-all"
+          >
+            {isPendingCancelOrder ? "Loading..." : "Batalkan Pesanan"}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
