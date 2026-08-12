@@ -106,6 +106,16 @@ const PaymentSuccessDialog = ({
                 )}
               </div>
               <div className="flex flex-row justify-between pb-2.5 border-b-2 border-dashed border-neutral-200">
+                <span className="text-text ">Payment Status</span>
+                {loadingOrder ? (
+                  <Skeleton className="w-1/4 h-4 bg-neutral-200" />
+                ) : (
+                  <span className="font-medium text-text-muted uppercase">
+                    {paymentOrder?.payment_status}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-row justify-between pb-2.5 border-b-2 border-dashed border-neutral-200">
                 <span className="text-text">Time</span>
                 {loadingOrder ? (
                   <Skeleton className="w-1/4 h-4 bg-neutral-200" />
