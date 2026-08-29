@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card";
 
 import { formatCurrency } from "@/utils/formatCurrency";
+import { imageUrl } from "../../../../utils/imageUrl";
 
 const MenuCard = ({ menu, onAddToCart }) => {
   return (
@@ -14,7 +15,7 @@ const MenuCard = ({ menu, onAddToCart }) => {
         <img
           draggable="false"
           className="object-cover w-full rounded-lg h-36"
-          src={menu.image.replace("/storage/", "")}
+          src={imageUrl(menu.image)}
           alt={menu.name}
         />
       </CardHeader>
