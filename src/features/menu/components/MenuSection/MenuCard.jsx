@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card";
 
 import { formatCurrency } from "@/utils/formatCurrency";
-import { imageUrl } from "../../../../utils/imageUrl";
+import { imageUrl } from "@/utils/imageUrl";
 
 const MenuCard = ({ menu, onAddToCart }) => {
   return (
