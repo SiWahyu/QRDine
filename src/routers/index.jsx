@@ -8,6 +8,8 @@ import TableGuard from "../features/table/components/TabelGuard";
 import ScannerPage from "../features/scanner/pages/ScannerPage";
 import PaymentGuard from "../features/payment/components/PaymentGuard";
 import PaymentSuccessGuard from "../features/payment/components/PaymentSuccessGuard";
+import LoginPage from "../features/auth/pages/LoginPage";
+import RegisterPage from "../features/auth/pages/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
   {
     path: "/table/:token",
     element: <TablePage />,
+  },
+  {
+    path: "/auth/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/auth/register",
+    element: <RegisterPage />,
   },
 ]);
 
