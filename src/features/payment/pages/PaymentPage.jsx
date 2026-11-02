@@ -24,11 +24,7 @@ import { useCancelOrder } from "../../order/hooks/useCancelOrder";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { pusher } from "../../../lib/pusher";
-import {
-  useSetPaymentSuccess,
-  useSetPaymentOrderNumber,
-  usePaymentOrderNumber,
-} from "../hooks/usePayment";
+
 import { useCreatePayment } from "../hooks/useCreatePayment";
 import { loadMidtransSnap } from "@/lib/midtrans";
 
@@ -52,10 +48,6 @@ const PaymentPage = () => {
     restaurant?.tax_percentage,
   );
 
-  const setPaymentSuccess = useSetPaymentSuccess();
-  const setPaymentOrderNumber = useSetPaymentOrderNumber();
-  const paymentOrderNumber = usePaymentOrderNumber();
-
   const { mutateAsync: createPayment } = useCreatePayment();
 
   const { mutateAsync: createOrder, isPending: isPendingCreateOrder } =
@@ -64,29 +56,24 @@ const PaymentPage = () => {
     useCancelOrder();
 
   useEffect(() => {
-    if (!paymentOrderNumber) return;
+    if (!order?.order_number) return;
 
-    const channel = pusher.subscribe(`order.${paymentOrderNumber}`);
+    const channel = pusher.subscribe(`order.${order.order_number}`);
 
     const handleOrderPaid = () => {
-      setPaymentSuccess(true);
       clearOrder();
-      navigate("/payment-success", { replace: true });
+      navigate(`/payment/status?orderNumber=${order.order_number}`, {
+        replace: true,
+      });
     };
 
     channel.bind("order-paid", handleOrderPaid);
 
     return () => {
       channel.unbind("order-paid");
-      pusher.unsubscribe(`order.${paymentOrderNumber}`);
+      pusher.unsubscribe(`order.${order.order_number}`);
     };
-  }, [
-    paymentOrderNumber,
-    clearOrder,
-    navigate,
-    setPaymentSuccess,
-    setPaymentOrderNumber,
-  ]);
+  }, [order, clearOrder, navigate]);
 
   const methods = useForm({
     resolver: zodResolver(paymentSchema),
@@ -123,8 +110,6 @@ const PaymentPage = () => {
 
       const createdOrder = response.data;
 
-      setPaymentOrderNumber(createdOrder.order_number);
-
       if (paymentMethod === "online") {
         const paymentResponse = await createPayment(createdOrder.order_number);
 
@@ -134,9 +119,13 @@ const PaymentPage = () => {
 
         snap.pay(snapToken, {
           onSuccess: () => {
-            setPaymentSuccess(true);
             clearOrder();
-            navigate("/payment-success", { replace: true });
+            navigate(
+              `/payment/status?orderNumber=${createdOrder.order_number}`,
+              {
+                replace: true,
+              },
+            );
           },
         });
       }

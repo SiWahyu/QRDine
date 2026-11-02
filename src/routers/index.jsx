@@ -2,12 +2,11 @@ import { createBrowserRouter, Navigate } from "react-router";
 import { MenuPage } from "@/features/menu";
 import { CartPage } from "@/features/cart";
 import PaymentPage from "../features/payment/pages/PaymentPage";
-import PaymentSuccessPage from "../features/payment/pages/PaymentSuccessPage";
+import PaymentStatusPage from "../features/payment/pages/PaymentStatusPage";
 import TablePage from "../features/table/pages/TablePage";
 import TableGuard from "../features/table/components/TabelGuard";
 import ScannerPage from "../features/scanner/pages/ScannerPage";
 import PaymentGuard from "../features/payment/components/PaymentGuard";
-import PaymentSuccessGuard from "../features/payment/components/PaymentSuccessGuard";
 import LoginPage from "../features/auth/pages/LoginPage";
 import RegisterPage from "../features/auth/pages/RegisterPage";
 
@@ -47,12 +46,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/payment-success",
+    path: "/payment/status",
     element: (
       <TableGuard>
-        <PaymentSuccessGuard>
-          <PaymentSuccessPage />
-        </PaymentSuccessGuard>
+        <PaymentStatusPage />
       </TableGuard>
     ),
   },

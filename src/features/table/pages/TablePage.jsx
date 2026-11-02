@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useTable } from "../hooks/useTable";
 import { useTableActions } from "../hooks/useTableActions";
-import TableNotFound from "../components/TableNofFound";
+import TableNotFound from "../components/TableNotFound";
 import PageLayout from "@/layouts/PageLayout";
 import TableLoading from "../components/TableLoading";
 
@@ -11,7 +11,7 @@ export default function TablePage() {
 
   const navigate = useNavigate();
 
-  const { data: table, isLoading, isError } = useTable(token);
+  const { data: table, isLoading, isError, refetch } = useTable(token);
 
   const { setTable } = useTableActions();
 
@@ -36,7 +36,7 @@ export default function TablePage() {
   if (isError) {
     return (
       <PageLayout>
-        <TableNotFound />
+        <TableNotFound onRetry={() => refetch()} />
       </PageLayout>
     );
   }

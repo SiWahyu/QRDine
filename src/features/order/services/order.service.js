@@ -8,7 +8,7 @@ export const createOrder = async (payload) => {
 export const getOrderByNumber = async (orderNumber) => {
   const { data } = await api.get(`/orders/${orderNumber}`);
 
-  return data.data;
+  return data;
 };
 
 export const cancelOrder = async (orderId) => {

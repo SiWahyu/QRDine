@@ -6,5 +6,6 @@ export const useOrderByNumber = (orderNumber) => {
     queryKey: ["order", orderNumber],
     queryFn: () => getOrderByNumber(orderNumber),
     enabled: !!orderNumber,
+    retry: false,
   });
 };
